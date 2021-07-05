@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class PoolManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance
+    private static PoolManager instance;
+    public static PoolManager Instance
     {
         get
         {
-            if (instance == null)
-                Debug.LogError("GameManager instance not found");
+            if(instance == null)
+                Debug.LogError("PoolManager instance not found");
 
             return instance;
         }
