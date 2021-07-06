@@ -58,16 +58,10 @@ public class Controller : MonoBehaviour
         else if(Input.GetKey(KeyCode.RightArrow))
             horizontal = -1;
 
-        if(horizontal != 0)
-            HorizontalRotation();
-
         if(Input.GetKey(KeyCode.UpArrow))
             vertical = 1;
         else if(Input.GetKey(KeyCode.DownArrow))
             vertical = -1;
-
-        if(vertical != 0)
-            VerticalRotation();
 
         if (vertical != 0 || horizontal != 0)
         Rotation();
@@ -94,57 +88,17 @@ public class Controller : MonoBehaviour
         //trayBody.MoveRotation(ClampRotation(trayBody.rotation * deltaRotation, rotationClamp));     // tourne le plateau, avec une certaine limite
         this.transform.RotateAround(
             sphereRB.transform.position, 
-            ClampVector3(trayBody.rotation * deltaRotation.eulerAngles, rotationClamp), 
+            trayBody.rotation * deltaRotation.eulerAngles, 
             horizontalRotateSpeed * Time.deltaTime
             );
 
         this.transform.RotateAround(
             sphereRB.transform.position,
-            ClampVector3(trayBody.rotation * deltaRotation.eulerAngles, rotationClamp), 
+            trayBody.rotation * deltaRotation.eulerAngles, 
             verticalRotateSpeed * Time.deltaTime
             );
 
         horizontal = 0;
         vertical = 0;
-    }
-
-    private void HorizontalRotation()
-    {
-
-    }
-
-    private void VerticalRotation()
-    {
-
-    }
-
-    private Quaternion ClampRotation(Quaternion q, Vector3 bounds)
-    {
-        q.x /= q.w;
-        q.y /= q.w;
-        q.z /= q.w;
-        q.w = 1.0f;
-
-        float angleX = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.x);      // la joie des angles
-        angleX = Mathf.Clamp(angleX, -bounds.x, bounds.x);
-        q.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleX);
-
-        float angleY = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.y);
-        angleY = Mathf.Clamp(angleY, -bounds.y, bounds.y);
-        q.y = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleY);
-
-        float angleZ = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.z);
-        angleZ = Mathf.Clamp(angleZ, -bounds.z, bounds.z);
-        q.z = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleZ);
-
-        return q;
-    }
-
-    private Vector3 ClampVector3(Vector3 v, Vector3 bounds)
-    {
-        v.x = Mathf.Clamp(v.x, -bounds.x, bounds.x);
-        v.y = Mathf.Clamp(v.y, -bounds.y, bounds.y);
-        v.z = Mathf.Clamp(v.z, -bounds.z, bounds.z);
-        return v;
     }
 }
