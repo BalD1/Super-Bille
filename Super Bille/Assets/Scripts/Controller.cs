@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Controller : MonoBehaviour
 {
     #region variables
+
+    [SerializeField] [Range(0, 5)] private float cameraYMov;
+    [SerializeField] private CinemachineVirtualCamera cineCam;
+    private float baseCameraYPos;
 
     [SerializeField] private float baseHorizontalRotateSpeed, baseVerticalRotateSpeed;
     private float horizontalRotateSpeed, verticalRotateSpeed;
@@ -33,6 +38,7 @@ public class Controller : MonoBehaviour
 
     private void init()
     {
+        baseCameraYPos = cineCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y;
         if(trayBody == null)
             trayBody = this.gameObject.GetComponent<Rigidbody>();
         if(sphereGO == null)
@@ -44,6 +50,8 @@ public class Controller : MonoBehaviour
     private void Update()
     {
         VerifyRotation();
+
+
     }
 
     private void VerifyRotation()
@@ -147,10 +155,10 @@ public class Controller : MonoBehaviour
         deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
 
         this.transform.RotateAround(
-    sphereRB.transform.position,
-    trayBody.rotation * deltaRotation.eulerAngles,
-    horizontalRotateSpeed * Time.deltaTime
-    );
+                                     sphereRB.transform.position,
+                                     trayBody.rotation * deltaRotation.eulerAngles,
+                                     horizontalRotateSpeed * Time.deltaTime
+                                    );
         horizontal = 0;
         vertical = 0;
         inputRotation = Vector3.zero;
@@ -164,14 +172,16 @@ public class Controller : MonoBehaviour
         deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
 
         this.transform.RotateAround(
-    sphereRB.transform.position,
-    trayBody.rotation * deltaRotation.eulerAngles,
-    verticalRotateSpeed * Time.deltaTime
-    );
+                                     sphereRB.transform.position,
+                                     trayBody.rotation * deltaRotation.eulerAngles,
+                                     verticalRotateSpeed * Time.deltaTime
+                                    );
 
         horizontal = 0;
         vertical = 0;
         inputRotation = Vector3.zero;
+
+        cineCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = (vertical / 2) + cameraYMov;
     }
 
     private void Reset()
