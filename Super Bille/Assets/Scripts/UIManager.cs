@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
                 gameOverGO.SetActive(false);
                 break;
             case 3:
-                mainMenuGO.SetActive(true);
+                mainMenuGO.SetActive(false);
                 hudGO.SetActive(false);
                 pauseGO.SetActive(false);
                 gameOverGO.SetActive(true);
