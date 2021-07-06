@@ -22,6 +22,8 @@ public class Controller : MonoBehaviour
     private Rigidbody sphereRB;
     private Vector3 sphereVelocity;
 
+    private bool reseting;
+
     #endregion
 
     void Start()
@@ -70,22 +72,31 @@ public class Controller : MonoBehaviour
 
     private void Inputs()
     {
-        if(Input.GetKey(KeyCode.LeftArrow) && (this.transform.eulerAngles.z >= 360 - rotationClamp.z || this.transform.eulerAngles.z <= rotationClamp.z || Mathf.Approximately(this.transform.eulerAngles.z, 360 - rotationClamp.z)))
-            horizontal = 1;
-        else if(Input.GetKey(KeyCode.RightArrow) && (!(this.transform.eulerAngles.z >= rotationClamp.z &&
-                                                    this.transform.eulerAngles.z <= 360 - rotationClamp.z) ||
-                                                    ((Mathf.Approximately(this.transform.eulerAngles.z, rotationClamp.z)))))
-            horizontal = -1;
+        if(Input.GetKeyDown(KeyCode.Space))
+            Reset();
+        if(!reseting)
+        {
+            if(Input.GetKey(KeyCode.LeftArrow)
+                && (this.transform.eulerAngles.z >= 360 - rotationClamp.z || this.transform.eulerAngles.z <= rotationClamp.z || Mathf.Approximately(this.transform.eulerAngles.z, 360 - rotationClamp.z)))
+                horizontal = 1;
 
-        if(Input.GetKey(KeyCode.UpArrow) && (this.transform.eulerAngles.x >= 360 - rotationClamp.x || this.transform.eulerAngles.x <= rotationClamp.x || Mathf.Approximately(this.transform.eulerAngles.x, 360 - rotationClamp.x)))
-            vertical = 1;
-        else if(Input.GetKey(KeyCode.DownArrow) && (!(this.transform.eulerAngles.x >= rotationClamp.x &&
-                           this.transform.eulerAngles.x <= 360 - rotationClamp.x) ||
-                           ((Mathf.Approximately(this.transform.eulerAngles.x, rotationClamp.x)))))
-            vertical = -1;
+            else if(Input.GetKey(KeyCode.RightArrow) && (!(this.transform.eulerAngles.z >= rotationClamp.z &&
+                                                        this.transform.eulerAngles.z <= 360 - rotationClamp.z) ||
+                                                        ((Mathf.Approximately(this.transform.eulerAngles.z, rotationClamp.z)))))
+                horizontal = -1;
 
-        if(vertical != 0 || horizontal != 0)
-            Rotation();
+            if(Input.GetKey(KeyCode.UpArrow) 
+                && (this.transform.eulerAngles.x >= 360 - rotationClamp.x || this.transform.eulerAngles.x < rotationClamp.x))
+                vertical = 1;
+
+            else if(Input.GetKey(KeyCode.DownArrow) && (!(this.transform.eulerAngles.x >= rotationClamp.x &&
+                               this.transform.eulerAngles.x <= 360 - rotationClamp.x) ||
+                               ((Mathf.Approximately(this.transform.eulerAngles.x, rotationClamp.x)))))
+                vertical = -1;
+
+            if(vertical != 0 || horizontal != 0)
+                Rotation();
+        }
     }
 
     private void Rotation()
@@ -106,7 +117,6 @@ public class Controller : MonoBehaviour
 
         deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
 
-        //trayBody.MoveRotation(ClampRotation(trayBody.rotation * deltaRotation, rotationClamp));     // tourne le plateau, avec une certaine limite
         this.transform.RotateAround(
             sphereRB.transform.position,
             trayBody.rotation * deltaRotation.eulerAngles,
@@ -121,5 +131,12 @@ public class Controller : MonoBehaviour
 
         horizontal = 0;
         vertical = 0;
+
+    }
+
+    private void Reset()
+    {
+        reseting = true;
+        trayBody.MoveRotation(Quaternion.Euler(Vector3.zero));
     }
 }
