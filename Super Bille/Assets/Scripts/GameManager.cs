@@ -55,12 +55,20 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AddScore(0);
+        if(PlayerPrefs.HasKey("bestScore"))
+        {
+            _bestScore = PlayerPrefs.GetInt("bestScore");
+        }
     }
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             PauseUnpause();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangeGameState(GameStates.GameOver);
         }
     }
     public void AddScore(int amount)
@@ -99,7 +107,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.InGame:
                 UIManager.Instance.ChangeUI((int)GameState);
-                SceneManager.LoadScene("MainScene");
                 Time.timeScale = 1;
                 break;
             case GameStates.Pause:
@@ -115,8 +122,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ChangeGameStateByUI(int gameState)
+
+    public void Load(string scene)
     {
-        ChangeGameState((GameStates)gameState);
+        SceneManager.LoadScene(scene);
+    }
+
+    public void Quit()
+    {
+        PlayerPrefs.SetInt("bestScore", bestScore);
+        Application.Quit();
     }
 }
