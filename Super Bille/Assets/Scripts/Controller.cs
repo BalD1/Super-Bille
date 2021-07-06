@@ -4,35 +4,46 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    #region variables
 
     [SerializeField] private float rotateSpeed;
     [SerializeField] private Vector3 rotationClamp;
-    [SerializeField] private Rigidbody trayBody;
 
+    [SerializeField] private Rigidbody trayBody;
+    
     private float horizontal, vertical;
 
     private Vector3 inputRotation;
     private Quaternion deltaRotation;
 
+    [SerializeField] private float sphereSlowDown;
+    [SerializeField] private GameObject sphereGO;
+    private Rigidbody sphereRB;
+    private Vector3 sphereVelocity;
+
+    #endregion
+
     void Start()
+    {
+        init();
+    }
+
+    private void init()
     {
         if(trayBody == null)
             trayBody = this.gameObject.GetComponent<Rigidbody>();
-    }
+        if(sphereGO == null)
+            sphereGO = GameObject.FindGameObjectWithTag("sphere");
 
-
-    void Update()
-    {
-
+        sphereRB = sphereGO.GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        Rotation();
+        Inputs();
     }
 
-    /*
-    private void Rotation()
+    private void Inputs()
     {
         if(Input.GetKey(KeyCode.LeftArrow))
             horizontal = 1;
@@ -44,34 +55,23 @@ public class Controller : MonoBehaviour
         else if(Input.GetKey(KeyCode.DownArrow))
             vertical = -1;
 
-        objRotation.x = vertical * rotateSpeed;
-        objRotation.y = horizontal * rotateSpeed;
-
-        this.gameObject.transform.Rotate(objRotation);
-
-        horizontal = 0;
-        vertical = 0;
+        if(horizontal != 0 || vertical != 0)
+            Rotation();
     }
-    */
 
     private void Rotation()
     {
-        if(Input.GetKey(KeyCode.LeftArrow))
-            horizontal = 1;
-        else if(Input.GetKey(KeyCode.RightArrow))
-            horizontal = -1;
+        sphereVelocity = sphereRB.velocity;
+        sphereVelocity.x /= sphereSlowDown;
+        sphereVelocity.z /= sphereSlowDown;
 
-        if(Input.GetKey(KeyCode.UpArrow))
-            vertical = 1;
-        else if(Input.GetKey(KeyCode.DownArrow))
-            vertical = -1;
+        sphereRB.velocity = sphereVelocity;     // améliore la maniabilité en ralentissant légère la bille, sans toucher à sa gravité
 
         inputRotation.x = vertical * rotateSpeed;
         inputRotation.z = horizontal * rotateSpeed;
 
-
         deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
-        trayBody.MoveRotation(ClampRotation(trayBody.rotation * deltaRotation, rotationClamp));
+        trayBody.MoveRotation(ClampRotation(trayBody.rotation * deltaRotation, rotationClamp));     // tourne le plateau, avec une certaine limite
 
 
         horizontal = 0;
@@ -85,7 +85,7 @@ public class Controller : MonoBehaviour
         q.z /= q.w;
         q.w = 1.0f;
 
-        float angleX = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.x);
+        float angleX = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.x);      // la joie des angles
         angleX = Mathf.Clamp(angleX, -bounds.x, bounds.x);
         q.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleX);
 
