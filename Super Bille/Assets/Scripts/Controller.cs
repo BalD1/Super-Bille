@@ -72,8 +72,9 @@ public class Controller : MonoBehaviour
 
     private void Inputs()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Return))
             Reset();
+
         if(!reseting)
         {
             if(Input.GetKey(KeyCode.LeftArrow)
@@ -94,8 +95,13 @@ public class Controller : MonoBehaviour
                                ((Mathf.Approximately(this.transform.eulerAngles.x, rotationClamp.x)))))
                 vertical = -1;
 
-            if(vertical != 0 || horizontal != 0)
-                Rotation();
+            //if(vertical != 0 || horizontal != 0)
+            //  Rotation();
+
+            if(vertical != 0)
+                V();
+            if(horizontal != 0)
+                H();
         }
     }
 
@@ -108,15 +114,14 @@ public class Controller : MonoBehaviour
 
         sphereRB.velocity = sphereVelocity;     // améliore la maniabilité en ralentissant légère la bille, sans toucher à sa gravité
 
-        inputRotation.z = horizontal * baseHorizontalRotateSpeed;
-        horizontalRotateSpeed = baseHorizontalRotateSpeed * horizontal;
+        inputRotation.z += horizontal * baseHorizontalRotateSpeed;
+        horizontalRotateSpeed = inputRotation.z;
 
-        //  rotateSpeed = baseVerticalRotateSpeed / (this.transform.position.z + sphereRB.transform.position.z);
-        inputRotation.x = vertical * baseVerticalRotateSpeed;
-        verticalRotateSpeed = baseVerticalRotateSpeed * vertical;
+        inputRotation.x += vertical * baseVerticalRotateSpeed;
+        verticalRotateSpeed = inputRotation.x;
 
         deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
-
+        
         this.transform.RotateAround(
             sphereRB.transform.position,
             trayBody.rotation * deltaRotation.eulerAngles,
@@ -131,7 +136,42 @@ public class Controller : MonoBehaviour
 
         horizontal = 0;
         vertical = 0;
+        inputRotation = Vector3.zero;
+    }
 
+    private void H()
+    {
+        inputRotation.z += horizontal * baseHorizontalRotateSpeed;
+        horizontalRotateSpeed = inputRotation.z;
+
+        deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
+
+        this.transform.RotateAround(
+    sphereRB.transform.position,
+    trayBody.rotation * deltaRotation.eulerAngles,
+    horizontalRotateSpeed * Time.deltaTime
+    );
+        horizontal = 0;
+        vertical = 0;
+        inputRotation = Vector3.zero;
+    }
+
+    private void V()
+    {
+        inputRotation.x += vertical * baseVerticalRotateSpeed;
+        verticalRotateSpeed = inputRotation.x;
+
+        deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
+
+        this.transform.RotateAround(
+    sphereRB.transform.position,
+    trayBody.rotation * deltaRotation.eulerAngles,
+    verticalRotateSpeed * Time.deltaTime
+    );
+
+        horizontal = 0;
+        vertical = 0;
+        inputRotation = Vector3.zero;
     }
 
     private void Reset()
