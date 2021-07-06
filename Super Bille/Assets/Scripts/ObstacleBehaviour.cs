@@ -14,25 +14,53 @@ public class ObstacleBehaviour : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 positionRay = transform.position;
-        positionRay.y += 5;
-        Debug.DrawRay(transform.position,transform.forward * 10, Color.red);
-        Debug.DrawRay(transform.position,-transform.forward * 10, Color.red);
-        Debug.DrawRay(transform.position,transform.right * 10, Color.red);
-        Debug.DrawRay(transform.position,-transform.right * 10, Color.red);
-        if(Physics.Raycast(transform.position, transform.forward, out hit,10,layerMask))
+        positionRay.z +=45;
+        //Cardinal
+        Debug.DrawRay(transform.position,transform.forward * 5, Color.red);
+        Debug.DrawRay(transform.position,-transform.forward * 5, Color.red);
+        Debug.DrawRay(transform.position,transform.right * 5, Color.red);
+        Debug.DrawRay(transform.position,-transform.right * 5, Color.red);
+        //InterCardinal
+        Debug.DrawRay(transform.position, (transform.forward + transform.right) * 5, Color.blue);
+        Debug.DrawRay(transform.position, (transform.forward + -transform.right) * 5, Color.blue);
+        Debug.DrawRay(transform.position, (-transform.forward + transform.right) * 5, Color.blue);
+        Debug.DrawRay(transform.position, (-transform.forward + -transform.right) * 5, Color.blue);
+        //Cardinal
+        if(Physics.Raycast(transform.position, transform.forward, out hit, 5,layerMask))
         {
-            force.y = Mathf.Abs(force.z);
+            force.z = Mathf.Abs(force.z);
         }
-        if (Physics.Raycast(transform.position, -transform.forward, out hit, 10, layerMask))
+        if (Physics.Raycast(transform.position, -transform.forward, out hit, 5, layerMask))
         {
             force.z *= -1;
         }
-        if (Physics.Raycast(transform.position, transform.right, out hit, 10, layerMask))
+        if (Physics.Raycast(transform.position, transform.right, out hit, 5, layerMask))
         {
-            force.y = Mathf.Abs(force.x);
+            force.x = Mathf.Abs(force.x);
         }
-        if (Physics.Raycast(transform.position, -transform.right, out hit, 10, layerMask))
+        if (Physics.Raycast(transform.position, -transform.right, out hit, 5, layerMask))
         {
+            force.x *= -1;
+        }
+        //InterCardinal
+        if (Physics.Raycast(transform.position, transform.forward + transform.right, out hit, 5, layerMask))
+        {
+            force.z = Mathf.Abs(force.z);
+            force.x = Mathf.Abs(force.x);
+        }
+        if (Physics.Raycast(transform.position, transform.forward + -transform.right, out hit, 5, layerMask))
+        {
+            force.z = Mathf.Abs(force.z);
+            force.x *= -1;
+        }
+        if (Physics.Raycast(transform.position, -transform.forward + transform.right, out hit, 5, layerMask))
+        {
+            force.z *= -1;
+            force.x = Mathf.Abs(force.x);
+        }
+        if (Physics.Raycast(transform.position, -transform.forward + -transform.right, out hit, 5, layerMask))
+        {
+            force.z *= -1;
             force.x *= -1;
         }
     }

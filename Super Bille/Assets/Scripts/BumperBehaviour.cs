@@ -16,6 +16,12 @@ public class BumperBehaviour : MonoBehaviour
         time = timer;
         rend = GetComponent<Renderer>();
         startPosition = this.transform.position;
+        Debug.Log(startPosition);
+        Debug.Log(rend.bounds.size.x);
+        if (mirror)
+        {
+            speed *= -1;
+        }
     }
     void Update()
     {
@@ -36,24 +42,36 @@ public class BumperBehaviour : MonoBehaviour
         {
             if (position.x < startPosition.x - rend.bounds.size.x)
             {
-                speed *= -1;
+                if(speed < 0)
+                {
+                    speed *= -1;
+                }
             }
             if (position.x > startPosition.x)
             {
-                speed *= -1;
-                time = timer;
+                if (speed > 0)
+                {
+                    speed *= -1;
+                    time = timer;
+                }
             }
         }
         else
         {
             if (position.x > startPosition.x + rend.bounds.size.x)
             {
-                speed *= -1;
+                if (speed > 0)
+                {
+                    speed *= -1;
+                }
             }
             if (position.x < startPosition.x)
             {
-                speed *= -1;
-                time = timer;
+                if (speed < 0)
+                {
+                    speed *= -1;
+                    time = timer;
+                }
             }
         }
     }
