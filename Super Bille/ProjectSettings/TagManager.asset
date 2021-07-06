@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - sphere
+  - tile
+  - Tray
   layers:
   - Default
   - TransparentFX
