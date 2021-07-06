@@ -6,7 +6,8 @@ public class Controller : MonoBehaviour
 {
     #region variables
 
-    [SerializeField] private float rotateSpeed;
+    [SerializeField] private float baseHorizontalRotateSpeed, baseVerticalRotateSpeed;
+    private float horizontalRotateSpeed, verticalRotateSpeed;
     [SerializeField] private Vector3 rotationClamp;
 
     [SerializeField] private Rigidbody trayBody;
@@ -38,6 +39,13 @@ public class Controller : MonoBehaviour
         sphereRB = sphereGO.GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
+        Vector3 rot = this.transform.eulerAngles;
+        rot.y = 0;
+        this.transform.eulerAngles = rot;
+    }
+
     private void FixedUpdate()
     {
         Inputs();
@@ -50,32 +58,64 @@ public class Controller : MonoBehaviour
         else if(Input.GetKey(KeyCode.RightArrow))
             horizontal = -1;
 
+        if(horizontal != 0)
+            HorizontalRotation();
+
         if(Input.GetKey(KeyCode.UpArrow))
             vertical = 1;
         else if(Input.GetKey(KeyCode.DownArrow))
             vertical = -1;
 
-        if(horizontal != 0 || vertical != 0)
-            Rotation();
+        if(vertical != 0)
+            VerticalRotation();
+
+        if (vertical != 0 || horizontal != 0)
+        Rotation();
     }
 
     private void Rotation()
     {
+
         sphereVelocity = sphereRB.velocity;
         sphereVelocity.x /= sphereSlowDown;
         sphereVelocity.z /= sphereSlowDown;
 
         sphereRB.velocity = sphereVelocity;     // améliore la maniabilité en ralentissant légère la bille, sans toucher à sa gravité
-
-        inputRotation.x = vertical * rotateSpeed;
-        inputRotation.z = horizontal * rotateSpeed;
-
+        
+        inputRotation.z = horizontal * baseHorizontalRotateSpeed;
+        horizontalRotateSpeed = baseHorizontalRotateSpeed * horizontal;
+        
+      //  rotateSpeed = baseVerticalRotateSpeed / (this.transform.position.z + sphereRB.transform.position.z);
+        inputRotation.x = vertical * baseVerticalRotateSpeed;
+        verticalRotateSpeed = baseVerticalRotateSpeed * vertical;
+        
         deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
-        trayBody.MoveRotation(ClampRotation(trayBody.rotation * deltaRotation, rotationClamp));     // tourne le plateau, avec une certaine limite
 
+        //trayBody.MoveRotation(ClampRotation(trayBody.rotation * deltaRotation, rotationClamp));     // tourne le plateau, avec une certaine limite
+        this.transform.RotateAround(
+            sphereRB.transform.position, 
+            ClampVector3(trayBody.rotation * deltaRotation.eulerAngles, rotationClamp), 
+            horizontalRotateSpeed * Time.deltaTime
+            );
+
+        this.transform.RotateAround(
+            sphereRB.transform.position,
+            ClampVector3(trayBody.rotation * deltaRotation.eulerAngles, rotationClamp), 
+            verticalRotateSpeed * Time.deltaTime
+            );
 
         horizontal = 0;
         vertical = 0;
+    }
+
+    private void HorizontalRotation()
+    {
+
+    }
+
+    private void VerticalRotation()
+    {
+
     }
 
     private Quaternion ClampRotation(Quaternion q, Vector3 bounds)
@@ -97,6 +137,14 @@ public class Controller : MonoBehaviour
         angleZ = Mathf.Clamp(angleZ, -bounds.z, bounds.z);
         q.z = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleZ);
 
-        return q.normalized;
+        return q;
+    }
+
+    private Vector3 ClampVector3(Vector3 v, Vector3 bounds)
+    {
+        v.x = Mathf.Clamp(v.x, -bounds.x, bounds.x);
+        v.y = Mathf.Clamp(v.y, -bounds.y, bounds.y);
+        v.z = Mathf.Clamp(v.z, -bounds.z, bounds.z);
+        return v;
     }
 }

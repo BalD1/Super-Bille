@@ -245,7 +245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369204566}
   m_LocalRotation: {x: 0.30685648, y: 0, z: 0, w: 0.9517558}
-  m_LocalPosition: {x: 0, y: 6.39, z: -5.3999996}
+  m_LocalPosition: {x: -1.3, y: 6.39, z: 0.71000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1913351292}
@@ -355,7 +355,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371238944}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 2.09}
+  m_LocalPosition: {x: -1.3, y: 1, z: 8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1001,7 +1001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755748048}
   m_LocalRotation: {x: 0.30685648, y: 0, z: 0, w: 0.9517558}
-  m_LocalPosition: {x: 0, y: 6.39, z: -5.3999996}
+  m_LocalPosition: {x: -1.3, y: 6.39, z: 0.71000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1333,8 +1333,13 @@ PrefabInstance:
       objectReference: {fileID: 371238944}
     - target: {fileID: 146769975608641191, guid: 89058488116eca541ba661e101038b37,
         type: 3}
-      propertyPath: sphereSlowDown
-      value: 1.2
+      propertyPath: baseVerticalRotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 146769975608641190, guid: 89058488116eca541ba661e101038b37,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89058488116eca541ba661e101038b37, type: 3}
