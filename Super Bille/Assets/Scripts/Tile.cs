@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
 
     public Vector3 ObjStart
     {
-        get => start.transform.position;
+        get => start.transform.localPosition;
     }
 
     public Vector3 ObjEnd
