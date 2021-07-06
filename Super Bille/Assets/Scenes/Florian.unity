@@ -456,6 +456,9 @@ MonoBehaviour:
   - tag: 0
     prefabs:
     - {fileID: 1551135148}
+    - {fileID: 9002717689875707635, guid: 8a20c30f54aa3be48b9bf9c24fa47962, type: 3}
+    - {fileID: 8016534438236000866, guid: d8a3fc4551bdb6d41be7dcd564f098ba, type: 3}
+    - {fileID: 4041773749973369816, guid: d5befc1f98864204b8404000d5506c7f, type: 3}
     size: 10
 --- !u!114 &763822442
 MonoBehaviour:
@@ -818,6 +821,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.000000005703222
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063806833905648307, guid: 89058488116eca541ba661e101038b37,
+        type: 3}
+      propertyPath: tilesToCross
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89058488116eca541ba661e101038b37, type: 3}
