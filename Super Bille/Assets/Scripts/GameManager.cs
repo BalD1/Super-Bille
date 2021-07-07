@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            return Instance;
+            return _instance;
         }
     }
 
@@ -48,6 +49,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public AudioSource menuTheme;
+    public AudioSource inGameTheme;
+    public AudioSource gameOverTheme;
+
     private void Awake()
     {
         _instance = this;
@@ -59,6 +64,7 @@ public class GameManager : MonoBehaviour
         {
             _bestScore = PlayerPrefs.GetInt("bestScore");
         }
+        ChangeGameState(0);
     }
     void Update()
     {
@@ -71,9 +77,9 @@ public class GameManager : MonoBehaviour
             ChangeGameState(GameStates.GameOver);
         }
     }
-    public void AddScore(int amount)
+    public void AddScore(float amount)
     {
-        _score += amount;
+        _score = (int)amount;
         UIManager.Instance.scoreHUD.text = "Score : " + score + " m";
     }
     public void ResetScore()
@@ -104,9 +110,11 @@ public class GameManager : MonoBehaviour
         {
             case GameStates.MainMenu:
                 UIManager.Instance.ChangeUI((int)GameState);
+                PlaySound();
                 break;
             case GameStates.InGame:
                 UIManager.Instance.ChangeUI((int)GameState);
+                PlaySound();
                 Time.timeScale = 1;
                 break;
             case GameStates.Pause:
@@ -114,15 +122,34 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 break;
             case GameStates.GameOver:
+                Time.timeScale = 0;
                 UIManager.Instance.score.text = "Score : " + score + " m";
                 UIManager.Instance.bestScore.text = "Best Score : " + bestScore + " m";
                 ResetScore();
                 UIManager.Instance.ChangeUI((int)GameState);
+                PlaySound();
                 break;
         }
     }
 
-
+    void PlaySound()
+    {
+        menuTheme.Stop();
+        inGameTheme.Stop();
+        gameOverTheme.Stop();
+        switch((int)GameState)
+        {
+            case 0:
+                menuTheme.Play();
+                break;
+            case 1:
+                inGameTheme.Play();
+                break;
+            case 3:
+                gameOverTheme.Play();
+                break;
+        }
+    }
     public void Load(string scene)
     {
         SceneManager.LoadScene(scene);
