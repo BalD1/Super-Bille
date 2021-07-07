@@ -18,7 +18,7 @@ public class Controller : MonoBehaviour
     private Vector3 inputRotation;
     private Quaternion deltaRotation;
 
-    [SerializeField] private float sphereSlowDown;
+    [SerializeField] [Range(1, 1.1f)] private float sphereSlowDown;
     [SerializeField] private GameObject sphereGO;
     private Rigidbody sphereRB;
     private Vector3 sphereVelocity;
@@ -122,6 +122,7 @@ public class Controller : MonoBehaviour
                                      trayBody.rotation * deltaRotation.eulerAngles,
                                      horizontalRotateSpeed * Time.deltaTime
                                     );
+        sphereRB.velocity /= sphereSlowDown;
         horizontal = 0;
         inputRotation = Vector3.zero;
     }
@@ -140,6 +141,7 @@ public class Controller : MonoBehaviour
                                      verticalRotateSpeed * Time.deltaTime
                                     );
 
+        sphereRB.velocity /= sphereSlowDown;
         vertical = 0;
         inputRotation = Vector3.zero;
     }
@@ -164,6 +166,7 @@ public class Controller : MonoBehaviour
         Quaternion start = target.rotation;
         while(t < duration)
         {
+            sphereRB.velocity /= (sphereSlowDown / 1.01f);
             if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.UpArrow)) // si on appuie sur une touche, on annule le reset
             {
                 t = duration;
