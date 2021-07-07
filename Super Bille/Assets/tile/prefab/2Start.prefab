@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &5992274578101593599
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167169073342474582}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 9091874763089778162, guid: 6367c73e2be5ca845aa606d837ca657a, type: 3}
+--- !u!64 &7955225927597182812
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167169074028397788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -6968846074178130577, guid: 1deec9e73fa710c4782a2dabcdff36db, type: 3}
 --- !u!1 &5327344570259982669
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,34 +86,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileRelated: {fileID: 1580717390278354848}
---- !u!64 &5992274578101593599
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4167169073342474582}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 9091874763089778162, guid: 6367c73e2be5ca845aa606d837ca657a, type: 3}
---- !u!64 &7955225927597182812
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4167169074028397788}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -6968846074178130577, guid: 1deec9e73fa710c4782a2dabcdff36db, type: 3}
 --- !u!1 &5494953137695845246
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,6 +199,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.00062
       objectReference: {fileID: 0}
+    - target: {fileID: 7902105401729909303, guid: 12fe73486e472e94b8560307883abeab,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e181fd161a9d4c41a7d09c87806d01d, type: 2}
+    - target: {fileID: 7902105401333133245, guid: 12fe73486e472e94b8560307883abeab,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e181fd161a9d4c41a7d09c87806d01d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12fe73486e472e94b8560307883abeab, type: 3}
 --- !u!4 &6745368251078076469 stripped

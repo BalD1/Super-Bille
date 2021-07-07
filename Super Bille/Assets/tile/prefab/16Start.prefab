@@ -119,20 +119,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.24564862, y: 0.60641134, z: 0.7630965}
   m_Center: {x: -0.028866274, y: 0.027206473, z: -0.1166735}
---- !u!114 &101547084270389294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8235159154686595290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2967dd21135e7d147857ac5fa120d03a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  end: {fileID: 101547082731521156}
-  tilesSpawner: {fileID: 0}
 --- !u!64 &2869483785366357961
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -147,6 +133,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: -2191230144402733682, guid: 81ad8c3a4aab17d49abd8dda130a5d8e, type: 3}
+--- !u!114 &101547084270389294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235159154686595290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2967dd21135e7d147857ac5fa120d03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  end: {fileID: 101547082731521156}
+  tilesSpawner: {fileID: 0}
 --- !u!1001 &101547084270389715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,6 +224,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 99.99997
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 81ad8c3a4aab17d49abd8dda130a5d8e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e181fd161a9d4c41a7d09c87806d01d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81ad8c3a4aab17d49abd8dda130a5d8e, type: 3}
 --- !u!1 &8235159154686595290 stripped

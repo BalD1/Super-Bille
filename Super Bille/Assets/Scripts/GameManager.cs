@@ -72,10 +72,6 @@ public class GameManager : MonoBehaviour
         {
             PauseUnpause();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChangeGameState(GameStates.GameOver);
-        }
     }
     public void AddScore(float amount)
     {
@@ -95,13 +91,13 @@ public class GameManager : MonoBehaviour
     {
         if (GameState == GameStates.Pause)
         {
-            ChangeGameState(GameStates.InGame);
             inGameTheme.UnPause();
+            ChangeGameState(GameStates.InGame);
         }
         else if(GameState == GameStates.InGame)
         {
-            ChangeGameState(GameStates.Pause);
             inGameTheme.Pause();
+            ChangeGameState(GameStates.Pause);
         }
     }
 
@@ -116,7 +112,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.InGame:
                 UIManager.Instance.ChangeUI((int)GameState);
-                if(inGameTheme.isPlaying)
+                if(!inGameTheme.isPlaying)
                 { 
                     PlaySound();
                 }
