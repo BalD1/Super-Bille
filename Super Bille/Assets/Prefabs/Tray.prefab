@@ -130,14 +130,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesToCross: 5
   tilesPrefab:
+  - {fileID: 5266557674459979488, guid: a783258373507ef49bb62b057fede61f, type: 3}
+  - {fileID: 5494953137695845246, guid: d38aedbab3cc2224f9e72585811f02a3, type: 3}
+  - {fileID: 5668582627587911970, guid: ce242c8ae12516d428411b53bfbea2ec, type: 3}
+  - {fileID: 5236128136867789105, guid: e00931bbf11a4a243b3cf26043889b53, type: 3}
+  - {fileID: 3473071207539892977, guid: f6160e81bddb80c4590b9850983862f0, type: 3}
+  - {fileID: 4035957679610560055, guid: 18399cfd2ac0ae04ba12a3810482d483, type: 3}
+  - {fileID: 1183238967533860704, guid: dea97d31bb2787d44aca1747b525ec62, type: 3}
+  - {fileID: 7167712766124462008, guid: 5da913384e4cd15419a01793df77cae0, type: 3}
+  - {fileID: 5825993710475322517, guid: aa0cbddf303cc8042a36936ef9612f07, type: 3}
+  - {fileID: 5376520625967920932, guid: d9624f38326181c49abbdd0df9c8eeae, type: 3}
+  - {fileID: 2886994685842034916, guid: f2fcdc326f4edcc4c91cb2f559e4aa24, type: 3}
+  - {fileID: 6204014845320118070, guid: 63e512e895d03f245821206b05cf89ce, type: 3}
+  - {fileID: 7700849066930018756, guid: 4b8a5945fb2004d4e97c134bb33b1c31, type: 3}
+  - {fileID: 1518918146191625779, guid: 5347d71446acdc54689dab2bda021750, type: 3}
+  - {fileID: 1336334553799309073, guid: 8b5d02801504aa24cb3da69360e9a1ab, type: 3}
+  - {fileID: 101547083232321581, guid: 6af6e4c096453ea4f9602c1cbc8313d4, type: 3}
   - {fileID: 3299548580287453921, guid: 6460fa15e4bae534dbe0bf43646b0060, type: 3}
-  - {fileID: 9002717689875707635, guid: 8a20c30f54aa3be48b9bf9c24fa47962, type: 3}
-  - {fileID: 8016534438236000866, guid: d8a3fc4551bdb6d41be7dcd564f098ba, type: 3}
-  - {fileID: 4041773749973369816, guid: d5befc1f98864204b8404000d5506c7f, type: 3}
-  - {fileID: 4516320901617010494, guid: 699717e1cc09b0b408f350e52228a7cc, type: 3}
-  - {fileID: 9002717689875707635, guid: 8a20c30f54aa3be48b9bf9c24fa47962, type: 3}
-  - {fileID: 8016534438236000866, guid: d8a3fc4551bdb6d41be7dcd564f098ba, type: 3}
-  - {fileID: 4041773749973369816, guid: d5befc1f98864204b8404000d5506c7f, type: 3}
 --- !u!114 &675513104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4952,8 +4961,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638250431764345876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 1, z: 2.17}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.02, y: 1, z: 2.17}
+  m_LocalScale: {x: 0.50088, y: 0.50088, z: 0.50088}
   m_Children:
   - {fileID: 8470617629348022601}
   m_Father: {fileID: 5491709179032345236}
@@ -5380,6 +5389,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516320901617010489, guid: 699717e1cc09b0b408f350e52228a7cc,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6.901663
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516320900708440792, guid: 699717e1cc09b0b408f350e52228a7cc,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.17573
       objectReference: {fileID: 0}
     - target: {fileID: 4516320899967099436, guid: 699717e1cc09b0b408f350e52228a7cc,
         type: 3}
