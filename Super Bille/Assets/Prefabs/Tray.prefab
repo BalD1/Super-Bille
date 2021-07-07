@@ -5405,6 +5405,11 @@ PrefabInstance:
       propertyPath: tilesSpawner
       value: 
       objectReference: {fileID: 8063806833905648307}
+    - target: {fileID: 4516320900708440794, guid: 699717e1cc09b0b408f350e52228a7cc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e181fd161a9d4c41a7d09c87806d01d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 699717e1cc09b0b408f350e52228a7cc, type: 3}
 --- !u!4 &8763474410245395487 stripped
