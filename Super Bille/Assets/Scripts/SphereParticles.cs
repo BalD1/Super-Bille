@@ -20,7 +20,6 @@ public class SphereParticles : MonoBehaviour
     private void Update()
     {
         this.transform.position = sphereRB.transform.position;
-        Debug.Log(sphereRB.velocity);
         if(sphereRB.velocity.z >= requiredVelocity && !particles.isPlaying)
         {
             particles.Play();

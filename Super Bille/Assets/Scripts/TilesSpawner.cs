@@ -43,7 +43,7 @@ public class TilesSpawner : MonoBehaviour
         }
         for (int i = 0; i < tilesPrefab.Count; i++)     // Instantie les tiles
         {
-            newTile = GameObject.Instantiate(tilesPrefab[i], originalTilesList[originalTilesList.Count - 1].GetComponentInChildren<Tile>().ObjEnd, Quaternion.identity, this.transform);
+            newTile = GameObject.Instantiate(tilesPrefab[i], originalTilesList[originalTilesList.Count - 1].GetComponentInChildren<Tile>().ObjEnd, tilesPrefab[i].transform.rotation, this.transform);
             originalTilesList.Add(newTile);
         }
 
