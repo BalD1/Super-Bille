@@ -31,12 +31,9 @@ public class Sphere : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        Tile tile = collision.collider.GetComponent<Tile>();
-        if(tile != null)
-        {
             falling = false;
             timer = resetTimer;
-        }
+        
     }
     private void OnCollisionExit(Collision collision)
     {

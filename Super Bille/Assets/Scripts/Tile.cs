@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private GameObject start;
     [SerializeField] private GameObject end;
     [SerializeField] private TilesSpawner tilesSpawner;
 
@@ -14,11 +13,6 @@ public class Tile : MonoBehaviour
     {
         if(tilesSpawner == null)
             tilesSpawner = GameObject.FindGameObjectWithTag("Tray").GetComponent<TilesSpawner>();
-    }
-
-    public Vector3 ObjStart
-    {
-        get => start.transform.localPosition;
     }
 
     public Vector3 ObjEnd
