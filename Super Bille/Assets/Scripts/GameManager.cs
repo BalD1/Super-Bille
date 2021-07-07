@@ -96,10 +96,12 @@ public class GameManager : MonoBehaviour
         if (GameState == GameStates.Pause)
         {
             ChangeGameState(GameStates.InGame);
+            inGameTheme.UnPause();
         }
         else if(GameState == GameStates.InGame)
         {
             ChangeGameState(GameStates.Pause);
+            inGameTheme.Pause();
         }
     }
 
@@ -114,7 +116,10 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.InGame:
                 UIManager.Instance.ChangeUI((int)GameState);
-                PlaySound();
+                if(inGameTheme.isPlaying)
+                { 
+                    PlaySound();
+                }
                 Time.timeScale = 1;
                 break;
             case GameStates.Pause:
