@@ -7,10 +7,6 @@ public class Controller : MonoBehaviour
 {
     #region variables
 
-    [SerializeField] [Range(0, 5)] private float cameraYMov;
-    [SerializeField] private CinemachineVirtualCamera cineCam;
-    private float baseCameraYPos;
-
     [SerializeField] private float baseHorizontalRotateSpeed, baseVerticalRotateSpeed;
     private float horizontalRotateSpeed, verticalRotateSpeed;
     [SerializeField] private Vector3 rotationClamp;
@@ -27,7 +23,6 @@ public class Controller : MonoBehaviour
     private Rigidbody sphereRB;
     private Vector3 sphereVelocity;
 
-    [SerializeField] private float timeBeforeReset;
     private float timer;
 
     private bool reseting;
@@ -110,13 +105,12 @@ public class Controller : MonoBehaviour
                 V();
             if(horizontal != 0)
                 H();
-            
+
         }
     }
 
     private void H()
     {
-        timer = timeBeforeReset;
 
         inputRotation.z += horizontal * baseHorizontalRotateSpeed;
         horizontalRotateSpeed = inputRotation.z;
@@ -134,7 +128,6 @@ public class Controller : MonoBehaviour
 
     private void V()
     {
-        timer = timeBeforeReset;
 
         inputRotation.x += vertical * baseVerticalRotateSpeed;
         verticalRotateSpeed = inputRotation.x;
@@ -151,13 +144,18 @@ public class Controller : MonoBehaviour
         inputRotation = Vector3.zero;
     }
 
+
+    /// <summary>
+    /// Reset la rotation du plateau
+    /// </summary>
     private void Reset()
     {
         reseting = true;
 
-        StartCoroutine(SmoothRotate(this.transform, Quaternion.identity, 2f));
+        StartCoroutine(SmoothRotate(this.transform, Quaternion.identity, 0.5f));
 
     }
+
 
     private IEnumerator SmoothRotate(Transform target, Quaternion rot, float duration)
     {
@@ -166,6 +164,12 @@ public class Controller : MonoBehaviour
         Quaternion start = target.rotation;
         while(t < duration)
         {
+            if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.UpArrow)) // si on appuie sur une touche, on annule le reset
+            {
+                t = duration;
+                reseting = false;
+                yield break;
+            }
             target.rotation = Quaternion.Slerp(start, rot, t / duration);
             yield return null;
             t += Time.deltaTime;
