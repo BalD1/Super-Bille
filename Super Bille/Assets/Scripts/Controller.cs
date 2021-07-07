@@ -27,6 +27,9 @@ public class Controller : MonoBehaviour
     private Rigidbody sphereRB;
     private Vector3 sphereVelocity;
 
+    [SerializeField] private float timeBeforeReset;
+    private float timer;
+
     private bool reseting;
 
     #endregion
@@ -94,7 +97,7 @@ public class Controller : MonoBehaviour
                                                         ((Mathf.Approximately(this.transform.eulerAngles.z, rotationClamp.z)))))
                 horizontal = -1;
 
-            if(Input.GetKey(KeyCode.UpArrow) 
+            if(Input.GetKey(KeyCode.UpArrow)
                 && (this.transform.eulerAngles.x >= 360 - rotationClamp.x || this.transform.eulerAngles.x < rotationClamp.x))
                 vertical = 1;
 
@@ -103,52 +106,31 @@ public class Controller : MonoBehaviour
                                ((Mathf.Approximately(this.transform.eulerAngles.x, rotationClamp.x)))))
                 vertical = -1;
 
-            //if(vertical != 0 || horizontal != 0)
-            //  Rotation();
 
             if(vertical != 0)
                 V();
             if(horizontal != 0)
                 H();
+
+            /*
+            if (vertical == 0 && horizontal == 0)
+            {
+                timer -= 1 * Time.deltaTime;
+                Debug.Log(timer);
+                if (timer < 0)
+                {
+                    Reset();
+                    timer = timeBeforeReset;
+                }
+            }
+            */
         }
-    }
-
-    private void Rotation()
-    {
-
-        sphereVelocity = sphereRB.velocity;
-        sphereVelocity.x /= sphereSlowDown;
-        sphereVelocity.z /= sphereSlowDown;
-
-        sphereRB.velocity = sphereVelocity;     // améliore la maniabilité en ralentissant légère la bille, sans toucher à sa gravité
-
-        inputRotation.z += horizontal * baseHorizontalRotateSpeed;
-        horizontalRotateSpeed = inputRotation.z;
-
-        inputRotation.x += vertical * baseVerticalRotateSpeed;
-        verticalRotateSpeed = inputRotation.x;
-
-        deltaRotation = Quaternion.Euler(inputRotation * Time.fixedDeltaTime);
-        
-        this.transform.RotateAround(
-            sphereRB.transform.position,
-            trayBody.rotation * deltaRotation.eulerAngles,
-            horizontalRotateSpeed * Time.deltaTime
-            );
-
-        this.transform.RotateAround(
-            sphereRB.transform.position,
-            trayBody.rotation * deltaRotation.eulerAngles,
-            verticalRotateSpeed * Time.deltaTime
-            );
-
-        horizontal = 0;
-        vertical = 0;
-        inputRotation = Vector3.zero;
     }
 
     private void H()
     {
+        timer = timeBeforeReset;
+
         inputRotation.z += horizontal * baseHorizontalRotateSpeed;
         horizontalRotateSpeed = inputRotation.z;
 
@@ -160,12 +142,13 @@ public class Controller : MonoBehaviour
                                      horizontalRotateSpeed * Time.deltaTime
                                     );
         horizontal = 0;
-        vertical = 0;
         inputRotation = Vector3.zero;
     }
 
     private void V()
     {
+        timer = timeBeforeReset;
+
         inputRotation.x += vertical * baseVerticalRotateSpeed;
         verticalRotateSpeed = inputRotation.x;
 
@@ -177,7 +160,6 @@ public class Controller : MonoBehaviour
                                      verticalRotateSpeed * Time.deltaTime
                                     );
 
-        horizontal = 0;
         vertical = 0;
         inputRotation = Vector3.zero;
 
@@ -187,6 +169,23 @@ public class Controller : MonoBehaviour
     private void Reset()
     {
         reseting = true;
-        trayBody.MoveRotation(Quaternion.Euler(Vector3.zero));
+
+        StartCoroutine(SmoothRotate(this.transform, Quaternion.identity, 2f));
+
+    }
+
+    private IEnumerator SmoothRotate(Transform target, Quaternion rot, float duration)
+    {
+
+        float t = 0f;
+        Quaternion start = target.rotation;
+        while(t < duration)
+        {
+            target.rotation = Quaternion.Slerp(start, rot, t / duration);
+            yield return null;
+            t += Time.deltaTime;
+        }
+        reseting = false;
+        target.rotation = rot;
     }
 }
