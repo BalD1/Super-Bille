@@ -41,7 +41,6 @@ public class Controller : MonoBehaviour
 
     private void init()
     {
-        baseCameraYPos = cineCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y;
         if(trayBody == null)
             trayBody = this.gameObject.GetComponent<Rigidbody>();
         if(sphereGO == null)
@@ -111,19 +110,7 @@ public class Controller : MonoBehaviour
                 V();
             if(horizontal != 0)
                 H();
-
-            /*
-            if (vertical == 0 && horizontal == 0)
-            {
-                timer -= 1 * Time.deltaTime;
-                Debug.Log(timer);
-                if (timer < 0)
-                {
-                    Reset();
-                    timer = timeBeforeReset;
-                }
-            }
-            */
+            
         }
     }
 
@@ -162,8 +149,6 @@ public class Controller : MonoBehaviour
 
         vertical = 0;
         inputRotation = Vector3.zero;
-
-        cineCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = (vertical / 2) + cameraYMov;
     }
 
     private void Reset()

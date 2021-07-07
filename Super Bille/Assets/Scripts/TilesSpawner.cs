@@ -61,7 +61,7 @@ public class TilesSpawner : MonoBehaviour
         if(tiles.Count == 0)
             tiles = originalTilesList;
 
-        newTile = tiles[Random.Range(0, baseTileToCross - 3)];      // respawn une tile au hasard parmis les premières
+        newTile = tiles[Random.Range(0, baseTileToCross - 2)];      // respawn une tile au hasard parmis les premières
         newTile.transform.position = tiles[tiles.Count - 1].GetComponentInChildren<Tile>().ObjEnd;
         tiles.Remove(newTile);
         tiles.Add(newTile);
